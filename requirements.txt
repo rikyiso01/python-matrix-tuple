@@ -1,1 +1,2 @@
-pdoc3
+pdoc
+wheel
