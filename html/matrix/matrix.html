@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>matrix.matrix API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>matrix.matrix</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import Generic,TypeVar,Iterator,Iterable,Callable,Union
+
+T=TypeVar(&#39;T&#39;)
+
+class Matrix(Generic[T]):
+    &#34;&#34;&#34;Representation of a matrix that support mathematical operations&#34;&#34;&#34;
+    @classmethod
+    def create_matrix(cls,n:int,m:int,function:Callable[[],T]=lambda:.0)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Create a matrix using values generated from the given function
+        :param n: the rows of the matrix
+        :param m: the columns of the matrix
+        :param function: a function that returns a value to generate the matrix
+        :returns: a new matrix with the given properties
+        &#34;&#34;&#34;
+        return Matrix([[function() for _ in range(m)] for _ in range(n)])
+
+    def __init__(self,matrix:Iterable[Iterable[T]]):
+        &#34;&#34;&#34;
+        Matrix constructor
+        :param matrix: an iterable of iterables to use as a template
+        :raises ValueError: if the iterables of matrix have different lengths
+        &#34;&#34;&#34;
+        result:tuple[tuple[T,...]]=tuple([tuple([elem for elem in vector]) for vector in matrix])
+        for vector in result:
+            if len(vector)!=len(result[0]):
+                raise ValueError(&#39;Matrix arrays have different lengths&#39;)
+        self._matrix=result
+
+    @property
+    def m(self)-&gt;int:
+        &#34;&#34;&#34;
+        The number of columns
+        :returns: the number of columns
+        &#34;&#34;&#34;
+        return len(self._matrix[0]) if self.n &gt; 0 else 0
+
+    @property
+    def n(self)-&gt;int:
+        &#34;&#34;&#34;
+        The number of rows
+        :return: the number of rows
+        &#34;&#34;&#34;
+        return len(self._matrix)
+
+    @property
+    def matrix(self)-&gt;tuple[tuple[T]]:
+        &#34;&#34;&#34;
+        Representation of the matrix as a touple of touples
+        :return: the touple of touples
+        &#34;&#34;&#34;
+        return self._matrix
+
+    def __getitem__(self, n:int)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Extract a vector from a matrix row
+        :param n: the row number
+        :return: the vector
+        &#34;&#34;&#34;
+        return Vector(self._matrix[n])
+
+    def __call__(self, m:int)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Extract a vector from a matrix column
+        :param m: the column number
+        :return: the vector
+        &#34;&#34;&#34;
+        return Vector(map(lambda vector:vector[m], self._matrix))
+
+    def __add__(self, other:&#39;Matrix[T]&#39;)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two matrix
+        :param other: the matrix to sum
+        :return: the resulting matrix
+        :raises ArithmeticError: if the matrix have different sizes
+        &#34;&#34;&#34;
+        if self.n!=other.n or self.m!=other.m:
+            raise ArithmeticError(&#39;Matrix have different size&#39;)
+        return Matrix([map(sum,zip(vectors[0],vectors[1])) for vectors in zip(self._matrix, other._matrix)])
+
+    def __neg__(self)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        A matrix which has all elements negated
+        :return: the resulting matrix
+        &#34;&#34;&#34;
+        return Matrix([[-num for num in vector] for vector in self._matrix])
+
+    def __sub__(self, other:&#39;Matrix[T]&#39;)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two matrix
+        :param other: the matrix to subtract
+        :return: the resulting matrix
+        :raises ArithmeticError: if the matrix have different sizes
+        &#34;&#34;&#34;
+        return self+(-other)
+
+    def __invert__(self)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Create a matrix with columns and rows inverted
+        :return: the resulting matrix
+        &#34;&#34;&#34;
+        return Matrix([[self._matrix[i][j] for i in range(self.n)] for j in range(self.m)])
+
+    def __iter__(self)-&gt;Iterator[&#39;Vector[T]&#39;]:
+        &#34;&#34;&#34;
+        Iterates over every vector of the matrix
+        :return: the iterator of vectors
+        &#34;&#34;&#34;
+        return iter(map(Vector, self._matrix))
+
+    def __mul__(self, other)-&gt;&#39;Matrix&#39;:
+        &#34;&#34;&#34;
+        Perform the matrix product between two matrix or multiply every element of the matrix with a constant
+        :param other: the matrix or the number to use
+        :return: the resulting matrix
+        :raises ArithmeticError: if two matrix are used and this matrix hasn&#39;t the same number of columns as the other
+        matrix
+        &#34;&#34;&#34;
+        if isinstance(other,Matrix):
+            if self.m!=other.n:
+                raise ArithmeticError(&#39;Matrix have different size&#39;)
+            return Matrix([[sum([self._matrix[i][a] * other._matrix[a][j] for a in range(self.m)])
+                            for j in range(other.m)] for i in range(self.n)])
+        else:
+            return Matrix([[elem*other for elem in vector] for vector in self._matrix])
+
+    def __truediv__(self, other)-&gt;&#39;Matrix&#39;:
+        &#34;&#34;&#34;
+        Divide every element of the matrix with a number
+        :param other: the number to divide against
+        :return: the resulting matrix
+        &#34;&#34;&#34;
+        return self*(1/other)
+
+    def __hash__(self)-&gt;int:
+        &#34;&#34;&#34;
+        Calculate the hash code of the matrix
+        :return: the hash code
+        &#34;&#34;&#34;
+        return hash(self._matrix)
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        Create a string representation of the matrix
+        :return: a string representing the matrix
+        &#34;&#34;&#34;
+        result=&#39;&#39;
+        for i in range(self.n):
+            result+=&#39;\n|&#39;
+            first=True
+            for j in range(self.m):
+                if not first:
+                    result+=&#39; &#39;
+                first=False
+                result+=str(self._matrix[i][j])
+            result+=&#39;|&#39;
+        return result
+
+    def __eq__(self, other)-&gt;bool:
+        &#34;&#34;&#34;
+        Check if the given object is equal to this matrix
+        :param other: the object to check
+        :return: if the two objects are equal
+        &#34;&#34;&#34;
+        if not isinstance(other,Matrix) or self.m!=other.m or self.n!=other.n:
+            return False
+        for i in range(self.n):
+            for j in range(self.m):
+                if self._matrix[i][j]!=other._matrix[i][j]:
+                    return False
+        return True
+
+
+class Vector(Matrix[T],Generic[T]):
+    &#34;&#34;&#34;A single row or column of a matrix&#34;&#34;&#34;
+    @classmethod
+    def create_vector(cls,length:int,function:Callable[[],T]=lambda:.0)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Create a vector by using a function to generate the values
+        :param length: the length of the vector
+        :param function: the function to use to generate the values
+        :return: the new vector
+        &#34;&#34;&#34;
+        return Vector([function() for _ in range(length)])
+
+    def __init__(self,vector:Iterable[T],transposed=False):
+        &#34;&#34;&#34;
+        Vector constructor
+        :param vector: a list of elements to use to create the matrix or a matrix with a single column or row
+        :param transposed: if the matrix should be a column instead of a row
+        :raises ValueError: if a matrix is passed and it hasn&#39;t a single column or row
+        &#34;&#34;&#34;
+        if isinstance(vector,Matrix):
+            if vector.n!=1 and vector.m!=1:
+                raise ValueError(f&#34;Matrix {vector.n}x{vector.m} isn&#39;t a vector&#34;)
+            super(Vector, self).__init__(vector.matrix)
+        else:
+            if transposed:
+                result=[[elem for elem in vector]]
+            else:
+                result=[[elem] for elem in vector]
+            super(Vector, self).__init__(result)
+
+    @property
+    def transposed(self)-&gt;bool:
+        &#34;&#34;&#34;
+        If the vector is a column instead of a row
+        :return: if the vector is a column instead of a row
+        &#34;&#34;&#34;
+        return len(self._matrix) == 1
+
+    def __len__(self)-&gt;int:
+        &#34;&#34;&#34;
+        The length of the vector
+        :return: the length of the vector
+        &#34;&#34;&#34;
+        return self.m if self.transposed else self.n
+
+    def __add__(self, other:&#39;Vector[T]&#39;)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two vectors together
+        :param other: the other vector to sum
+        :return: the resulting vector
+        :raises ArithmeticError: if the vector have different lengths
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__add__(other))
+
+    def __sub__(self, other:&#39;Vector[T]&#39;)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two vectors
+        :param other: the other vector to subtract
+        :return: the resulting vector
+        :raises ArithmeticError: if the vector have different lengths
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__sub__(other))
+
+    def __getitem__(self, item:int)-&gt;T:
+        &#34;&#34;&#34;
+        Get an element from the vector
+        :param item: the index of the element
+        :return: the element
+        &#34;&#34;&#34;
+        if self.transposed:
+            return self._matrix[0][item]
+        else:
+            return self._matrix[item][0]
+
+    def __neg__(self)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Create a vector which has all elements negated
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__neg__())
+
+    def __mul__(self, other)-&gt;Union[&#39;Vector[T]&#39;,T]:
+        &#34;&#34;&#34;
+        Multiply this vector with another vector performing a dot product or with a number multiplying every element
+        :param other: the vector or the number to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        if isinstance(other,Vector):
+            if self.transposed==other.transposed:
+                other=~other
+            return super(Vector, self).__mul__(other)[0][0]
+        else:
+            return Vector(super(Vector, self).__mul__(other))
+
+    def __invert__(self)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Transpose this vector
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__invert__())
+
+    def __iter__(self)-&gt;Iterator[T]:
+        &#34;&#34;&#34;
+        Iterates over every element of the vector
+        :return: the iterator to use
+        &#34;&#34;&#34;
+        return iter([self[a] for a in range(len(self))])
+
+class Vector3(Vector[T],Generic[T]):
+    &#34;&#34;&#34;Vector with three elements, useful for 3D physics&#34;&#34;&#34;
+    def __init__(self,x:T,y:T,z:T):
+        &#34;&#34;&#34;
+        3D vector construct
+        :param x: the first element of the vector
+        :param y: the second element of the vector
+        :param z: the third element of the vector
+        &#34;&#34;&#34;
+        super(Vector3, self).__init__([x,y,z])
+
+    @property
+    def x(self)-&gt;T:
+        &#34;&#34;&#34;
+        The first element of the vector
+        :return: the first element of the vector
+        &#34;&#34;&#34;
+        return self[0]
+
+    @property
+    def y(self)-&gt;T:
+        &#34;&#34;&#34;
+        The second element of the vector
+        :return: the second element of the vector
+        &#34;&#34;&#34;
+        return self[1]
+
+    @property
+    def z(self)-&gt;T:
+        &#34;&#34;&#34;
+        The third element of the vector
+        :return: the third element of the vector
+        &#34;&#34;&#34;
+        return self[2]
+
+    def __add__(self, other:&#39;Vector3[T]&#39;)-&gt;&#39;Vector3[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two 3D vectors together
+        :param other: the other 2D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(*super(Vector3, self).__add__(other))
+
+    def __sub__(self, other:&#39;Vector3[T]&#39;)-&gt;&#39;Vector3[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two 3D vectors together
+        :param other: the other 3D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(*super(Vector3, self).__sub__(other))
+
+    def __neg__(self)-&gt;&#39;Vector3[T]&#39;:
+        &#34;&#34;&#34;
+        The negative of the vector
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(*super(Vector3, self).__neg__())
+
+    def __mul__(self, other)-&gt;Union[&#39;Vector3[T]&#39;,T]:
+        &#34;&#34;&#34;
+        Multiply two vectors together with a dot product or multiply every element of the vector with a number
+        :param other: the 3D vector or the number to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        if isinstance(other,Vector):
+            return super(Vector3, self).__mul__(other)
+        else:
+            return Vector3(*super(Vector3, self).__mul__(other))
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        Create a string representation of this 3D vector
+        :return: the string representation of the 3D vector
+        &#34;&#34;&#34;
+        return str((self.x,self.y,self.z))
+
+    def __pow__(self, power:&#39;Vector3&#39;, modulo=None)-&gt;&#39;Vector3&#39;:
+        &#34;&#34;&#34;
+        Perform the cross product between two 3D vectors
+        :param power: the other vector
+        :param modulo: unused
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(self.y*power.z-self.z*power.y,self.z*power.x-self.x*power.z,self.x*power.y-self.y*power.x)
+
+class Vector2(Vector[T],Generic[T]):
+    &#34;&#34;&#34;Vector with two elements, useful for 2D physics&#34;&#34;&#34;
+    def __init__(self,x:T,y:T):
+        &#34;&#34;&#34;
+        2D vector construct
+        :param x: the first element of the vector
+        :param y: the second element of the vector
+        &#34;&#34;&#34;
+        super(Vector2, self).__init__([x,y])
+
+    @property
+    def x(self)-&gt;T:
+        &#34;&#34;&#34;
+        The first element of the vector
+        :return: the first element of the vector
+        &#34;&#34;&#34;
+        return self[0]
+
+    @property
+    def y(self)-&gt;T:
+        &#34;&#34;&#34;
+        The second element of the vector
+        :return: the second element of the vector
+        &#34;&#34;&#34;
+        return self[1]
+
+    def __add__(self, other:&#39;Vector2[T]&#39;)-&gt;&#39;Vector2[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two 2D vectors together
+        :param other: the other 2D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector2(*super(Vector2, self).__add__(other))
+
+    def __sub__(self, other:&#39;Vector2[T]&#39;)-&gt;&#39;Vector2[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two 2D vectors together
+        :param other: the other 2D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector2(*super(Vector2, self).__sub__(other))
+
+    def __neg__(self)-&gt;&#39;Vector2[T]&#39;:
+        &#34;&#34;&#34;
+        The negative of the vector
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector2(*super(Vector2, self).__neg__())
+
+    def __mul__(self, other)-&gt;Union[&#39;Vector2[T]&#39;,T]:
+        &#34;&#34;&#34;
+        Multiply two vectors together with a dot product or multiply every element of the vector with a number
+        :param other: the 2D vector or the number to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        if isinstance(other,Vector):
+            return super(Vector2, self).__mul__(other)
+        else:
+            return Vector2(*super(Vector2, self).__mul__(other))
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        Create a string representation of this 2D vector
+        :return: the string representation of the 2D vector
+        &#34;&#34;&#34;
+        return str((self.x,self.y))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="matrix.matrix.Matrix"><code class="flex name class">
+<span>class <span class="ident">Matrix</span></span>
+<span>(</span><span>matrix: Iterable[Iterable[~T]])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Representation of a matrix that support mathematical operations</p>
+<p>Matrix constructor
+:param matrix: an iterable of iterables to use as a template
+:raises ValueError: if the iterables of matrix have different lengths</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Matrix(Generic[T]):
+    &#34;&#34;&#34;Representation of a matrix that support mathematical operations&#34;&#34;&#34;
+    @classmethod
+    def create_matrix(cls,n:int,m:int,function:Callable[[],T]=lambda:.0)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Create a matrix using values generated from the given function
+        :param n: the rows of the matrix
+        :param m: the columns of the matrix
+        :param function: a function that returns a value to generate the matrix
+        :returns: a new matrix with the given properties
+        &#34;&#34;&#34;
+        return Matrix([[function() for _ in range(m)] for _ in range(n)])
+
+    def __init__(self,matrix:Iterable[Iterable[T]]):
+        &#34;&#34;&#34;
+        Matrix constructor
+        :param matrix: an iterable of iterables to use as a template
+        :raises ValueError: if the iterables of matrix have different lengths
+        &#34;&#34;&#34;
+        result:tuple[tuple[T,...]]=tuple([tuple([elem for elem in vector]) for vector in matrix])
+        for vector in result:
+            if len(vector)!=len(result[0]):
+                raise ValueError(&#39;Matrix arrays have different lengths&#39;)
+        self._matrix=result
+
+    @property
+    def m(self)-&gt;int:
+        &#34;&#34;&#34;
+        The number of columns
+        :returns: the number of columns
+        &#34;&#34;&#34;
+        return len(self._matrix[0]) if self.n &gt; 0 else 0
+
+    @property
+    def n(self)-&gt;int:
+        &#34;&#34;&#34;
+        The number of rows
+        :return: the number of rows
+        &#34;&#34;&#34;
+        return len(self._matrix)
+
+    @property
+    def matrix(self)-&gt;tuple[tuple[T]]:
+        &#34;&#34;&#34;
+        Representation of the matrix as a touple of touples
+        :return: the touple of touples
+        &#34;&#34;&#34;
+        return self._matrix
+
+    def __getitem__(self, n:int)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Extract a vector from a matrix row
+        :param n: the row number
+        :return: the vector
+        &#34;&#34;&#34;
+        return Vector(self._matrix[n])
+
+    def __call__(self, m:int)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Extract a vector from a matrix column
+        :param m: the column number
+        :return: the vector
+        &#34;&#34;&#34;
+        return Vector(map(lambda vector:vector[m], self._matrix))
+
+    def __add__(self, other:&#39;Matrix[T]&#39;)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two matrix
+        :param other: the matrix to sum
+        :return: the resulting matrix
+        :raises ArithmeticError: if the matrix have different sizes
+        &#34;&#34;&#34;
+        if self.n!=other.n or self.m!=other.m:
+            raise ArithmeticError(&#39;Matrix have different size&#39;)
+        return Matrix([map(sum,zip(vectors[0],vectors[1])) for vectors in zip(self._matrix, other._matrix)])
+
+    def __neg__(self)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        A matrix which has all elements negated
+        :return: the resulting matrix
+        &#34;&#34;&#34;
+        return Matrix([[-num for num in vector] for vector in self._matrix])
+
+    def __sub__(self, other:&#39;Matrix[T]&#39;)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two matrix
+        :param other: the matrix to subtract
+        :return: the resulting matrix
+        :raises ArithmeticError: if the matrix have different sizes
+        &#34;&#34;&#34;
+        return self+(-other)
+
+    def __invert__(self)-&gt;&#39;Matrix[T]&#39;:
+        &#34;&#34;&#34;
+        Create a matrix with columns and rows inverted
+        :return: the resulting matrix
+        &#34;&#34;&#34;
+        return Matrix([[self._matrix[i][j] for i in range(self.n)] for j in range(self.m)])
+
+    def __iter__(self)-&gt;Iterator[&#39;Vector[T]&#39;]:
+        &#34;&#34;&#34;
+        Iterates over every vector of the matrix
+        :return: the iterator of vectors
+        &#34;&#34;&#34;
+        return iter(map(Vector, self._matrix))
+
+    def __mul__(self, other)-&gt;&#39;Matrix&#39;:
+        &#34;&#34;&#34;
+        Perform the matrix product between two matrix or multiply every element of the matrix with a constant
+        :param other: the matrix or the number to use
+        :return: the resulting matrix
+        :raises ArithmeticError: if two matrix are used and this matrix hasn&#39;t the same number of columns as the other
+        matrix
+        &#34;&#34;&#34;
+        if isinstance(other,Matrix):
+            if self.m!=other.n:
+                raise ArithmeticError(&#39;Matrix have different size&#39;)
+            return Matrix([[sum([self._matrix[i][a] * other._matrix[a][j] for a in range(self.m)])
+                            for j in range(other.m)] for i in range(self.n)])
+        else:
+            return Matrix([[elem*other for elem in vector] for vector in self._matrix])
+
+    def __truediv__(self, other)-&gt;&#39;Matrix&#39;:
+        &#34;&#34;&#34;
+        Divide every element of the matrix with a number
+        :param other: the number to divide against
+        :return: the resulting matrix
+        &#34;&#34;&#34;
+        return self*(1/other)
+
+    def __hash__(self)-&gt;int:
+        &#34;&#34;&#34;
+        Calculate the hash code of the matrix
+        :return: the hash code
+        &#34;&#34;&#34;
+        return hash(self._matrix)
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        Create a string representation of the matrix
+        :return: a string representing the matrix
+        &#34;&#34;&#34;
+        result=&#39;&#39;
+        for i in range(self.n):
+            result+=&#39;\n|&#39;
+            first=True
+            for j in range(self.m):
+                if not first:
+                    result+=&#39; &#39;
+                first=False
+                result+=str(self._matrix[i][j])
+            result+=&#39;|&#39;
+        return result
+
+    def __eq__(self, other)-&gt;bool:
+        &#34;&#34;&#34;
+        Check if the given object is equal to this matrix
+        :param other: the object to check
+        :return: if the two objects are equal
+        &#34;&#34;&#34;
+        if not isinstance(other,Matrix) or self.m!=other.m or self.n!=other.n:
+            return False
+        for i in range(self.n):
+            for j in range(self.m):
+                if self._matrix[i][j]!=other._matrix[i][j]:
+                    return False
+        return True</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>typing.Generic</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="matrix.matrix.Matrix.create_matrix"><code class="name flex">
+<span>def <span class="ident">create_matrix</span></span>(<span>n: int, m: int, function: Callable[[], ~T] = &lt;function Matrix.&lt;lambda&gt;&gt;) ‑> <a title="matrix.matrix.Matrix" href="#matrix.matrix.Matrix">Matrix</a>[~T]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a matrix using values generated from the given function
+:param n: the rows of the matrix
+:param m: the columns of the matrix
+:param function: a function that returns a value to generate the matrix
+:returns: a new matrix with the given properties</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_matrix(cls,n:int,m:int,function:Callable[[],T]=lambda:.0)-&gt;&#39;Matrix[T]&#39;:
+    &#34;&#34;&#34;
+    Create a matrix using values generated from the given function
+    :param n: the rows of the matrix
+    :param m: the columns of the matrix
+    :param function: a function that returns a value to generate the matrix
+    :returns: a new matrix with the given properties
+    &#34;&#34;&#34;
+    return Matrix([[function() for _ in range(m)] for _ in range(n)])</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="matrix.matrix.Matrix.m"><code class="name">var <span class="ident">m</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The number of columns
+:returns: the number of columns</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def m(self)-&gt;int:
+    &#34;&#34;&#34;
+    The number of columns
+    :returns: the number of columns
+    &#34;&#34;&#34;
+    return len(self._matrix[0]) if self.n &gt; 0 else 0</code></pre>
+</details>
+</dd>
+<dt id="matrix.matrix.Matrix.matrix"><code class="name">var <span class="ident">matrix</span> : tuple</code></dt>
+<dd>
+<div class="desc"><p>Representation of the matrix as a touple of touples
+:return: the touple of touples</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def matrix(self)-&gt;tuple[tuple[T]]:
+    &#34;&#34;&#34;
+    Representation of the matrix as a touple of touples
+    :return: the touple of touples
+    &#34;&#34;&#34;
+    return self._matrix</code></pre>
+</details>
+</dd>
+<dt id="matrix.matrix.Matrix.n"><code class="name">var <span class="ident">n</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The number of rows
+:return: the number of rows</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def n(self)-&gt;int:
+    &#34;&#34;&#34;
+    The number of rows
+    :return: the number of rows
+    &#34;&#34;&#34;
+    return len(self._matrix)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="matrix.matrix.Vector"><code class="flex name class">
+<span>class <span class="ident">Vector</span></span>
+<span>(</span><span>vector: Iterable[~T], transposed=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A single row or column of a matrix</p>
+<p>Vector constructor
+:param vector: a list of elements to use to create the matrix or a matrix with a single column or row
+:param transposed: if the matrix should be a column instead of a row
+:raises ValueError: if a matrix is passed and it hasn't a single column or row</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Vector(Matrix[T],Generic[T]):
+    &#34;&#34;&#34;A single row or column of a matrix&#34;&#34;&#34;
+    @classmethod
+    def create_vector(cls,length:int,function:Callable[[],T]=lambda:.0)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Create a vector by using a function to generate the values
+        :param length: the length of the vector
+        :param function: the function to use to generate the values
+        :return: the new vector
+        &#34;&#34;&#34;
+        return Vector([function() for _ in range(length)])
+
+    def __init__(self,vector:Iterable[T],transposed=False):
+        &#34;&#34;&#34;
+        Vector constructor
+        :param vector: a list of elements to use to create the matrix or a matrix with a single column or row
+        :param transposed: if the matrix should be a column instead of a row
+        :raises ValueError: if a matrix is passed and it hasn&#39;t a single column or row
+        &#34;&#34;&#34;
+        if isinstance(vector,Matrix):
+            if vector.n!=1 and vector.m!=1:
+                raise ValueError(f&#34;Matrix {vector.n}x{vector.m} isn&#39;t a vector&#34;)
+            super(Vector, self).__init__(vector.matrix)
+        else:
+            if transposed:
+                result=[[elem for elem in vector]]
+            else:
+                result=[[elem] for elem in vector]
+            super(Vector, self).__init__(result)
+
+    @property
+    def transposed(self)-&gt;bool:
+        &#34;&#34;&#34;
+        If the vector is a column instead of a row
+        :return: if the vector is a column instead of a row
+        &#34;&#34;&#34;
+        return len(self._matrix) == 1
+
+    def __len__(self)-&gt;int:
+        &#34;&#34;&#34;
+        The length of the vector
+        :return: the length of the vector
+        &#34;&#34;&#34;
+        return self.m if self.transposed else self.n
+
+    def __add__(self, other:&#39;Vector[T]&#39;)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two vectors together
+        :param other: the other vector to sum
+        :return: the resulting vector
+        :raises ArithmeticError: if the vector have different lengths
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__add__(other))
+
+    def __sub__(self, other:&#39;Vector[T]&#39;)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two vectors
+        :param other: the other vector to subtract
+        :return: the resulting vector
+        :raises ArithmeticError: if the vector have different lengths
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__sub__(other))
+
+    def __getitem__(self, item:int)-&gt;T:
+        &#34;&#34;&#34;
+        Get an element from the vector
+        :param item: the index of the element
+        :return: the element
+        &#34;&#34;&#34;
+        if self.transposed:
+            return self._matrix[0][item]
+        else:
+            return self._matrix[item][0]
+
+    def __neg__(self)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Create a vector which has all elements negated
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__neg__())
+
+    def __mul__(self, other)-&gt;Union[&#39;Vector[T]&#39;,T]:
+        &#34;&#34;&#34;
+        Multiply this vector with another vector performing a dot product or with a number multiplying every element
+        :param other: the vector or the number to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        if isinstance(other,Vector):
+            if self.transposed==other.transposed:
+                other=~other
+            return super(Vector, self).__mul__(other)[0][0]
+        else:
+            return Vector(super(Vector, self).__mul__(other))
+
+    def __invert__(self)-&gt;&#39;Vector[T]&#39;:
+        &#34;&#34;&#34;
+        Transpose this vector
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector(super(Vector, self).__invert__())
+
+    def __iter__(self)-&gt;Iterator[T]:
+        &#34;&#34;&#34;
+        Iterates over every element of the vector
+        :return: the iterator to use
+        &#34;&#34;&#34;
+        return iter([self[a] for a in range(len(self))])</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="matrix.matrix.Matrix" href="#matrix.matrix.Matrix">Matrix</a></li>
+<li>typing.Generic</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="matrix.matrix.Vector2" href="#matrix.matrix.Vector2">Vector2</a></li>
+<li><a title="matrix.matrix.Vector3" href="#matrix.matrix.Vector3">Vector3</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="matrix.matrix.Vector.create_vector"><code class="name flex">
+<span>def <span class="ident">create_vector</span></span>(<span>length: int, function: Callable[[], ~T] = &lt;function Vector.&lt;lambda&gt;&gt;) ‑> <a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a>[~T]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a vector by using a function to generate the values
+:param length: the length of the vector
+:param function: the function to use to generate the values
+:return: the new vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_vector(cls,length:int,function:Callable[[],T]=lambda:.0)-&gt;&#39;Vector[T]&#39;:
+    &#34;&#34;&#34;
+    Create a vector by using a function to generate the values
+    :param length: the length of the vector
+    :param function: the function to use to generate the values
+    :return: the new vector
+    &#34;&#34;&#34;
+    return Vector([function() for _ in range(length)])</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="matrix.matrix.Vector.transposed"><code class="name">var <span class="ident">transposed</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>If the vector is a column instead of a row
+:return: if the vector is a column instead of a row</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def transposed(self)-&gt;bool:
+    &#34;&#34;&#34;
+    If the vector is a column instead of a row
+    :return: if the vector is a column instead of a row
+    &#34;&#34;&#34;
+    return len(self._matrix) == 1</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="matrix.matrix.Matrix" href="#matrix.matrix.Matrix">Matrix</a></b></code>:
+<ul class="hlist">
+<li><code><a title="matrix.matrix.Matrix.create_matrix" href="#matrix.matrix.Matrix.create_matrix">create_matrix</a></code></li>
+<li><code><a title="matrix.matrix.Matrix.m" href="#matrix.matrix.Matrix.m">m</a></code></li>
+<li><code><a title="matrix.matrix.Matrix.matrix" href="#matrix.matrix.Matrix.matrix">matrix</a></code></li>
+<li><code><a title="matrix.matrix.Matrix.n" href="#matrix.matrix.Matrix.n">n</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="matrix.matrix.Vector2"><code class="flex name class">
+<span>class <span class="ident">Vector2</span></span>
+<span>(</span><span>x: ~T, y: ~T)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Vector with two elements, useful for 2D physics</p>
+<p>2D vector construct
+:param x: the first element of the vector
+:param y: the second element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Vector2(Vector[T],Generic[T]):
+    &#34;&#34;&#34;Vector with two elements, useful for 2D physics&#34;&#34;&#34;
+    def __init__(self,x:T,y:T):
+        &#34;&#34;&#34;
+        2D vector construct
+        :param x: the first element of the vector
+        :param y: the second element of the vector
+        &#34;&#34;&#34;
+        super(Vector2, self).__init__([x,y])
+
+    @property
+    def x(self)-&gt;T:
+        &#34;&#34;&#34;
+        The first element of the vector
+        :return: the first element of the vector
+        &#34;&#34;&#34;
+        return self[0]
+
+    @property
+    def y(self)-&gt;T:
+        &#34;&#34;&#34;
+        The second element of the vector
+        :return: the second element of the vector
+        &#34;&#34;&#34;
+        return self[1]
+
+    def __add__(self, other:&#39;Vector2[T]&#39;)-&gt;&#39;Vector2[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two 2D vectors together
+        :param other: the other 2D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector2(*super(Vector2, self).__add__(other))
+
+    def __sub__(self, other:&#39;Vector2[T]&#39;)-&gt;&#39;Vector2[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two 2D vectors together
+        :param other: the other 2D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector2(*super(Vector2, self).__sub__(other))
+
+    def __neg__(self)-&gt;&#39;Vector2[T]&#39;:
+        &#34;&#34;&#34;
+        The negative of the vector
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector2(*super(Vector2, self).__neg__())
+
+    def __mul__(self, other)-&gt;Union[&#39;Vector2[T]&#39;,T]:
+        &#34;&#34;&#34;
+        Multiply two vectors together with a dot product or multiply every element of the vector with a number
+        :param other: the 2D vector or the number to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        if isinstance(other,Vector):
+            return super(Vector2, self).__mul__(other)
+        else:
+            return Vector2(*super(Vector2, self).__mul__(other))
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        Create a string representation of this 2D vector
+        :return: the string representation of the 2D vector
+        &#34;&#34;&#34;
+        return str((self.x,self.y))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a></li>
+<li><a title="matrix.matrix.Matrix" href="#matrix.matrix.Matrix">Matrix</a></li>
+<li>typing.Generic</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="matrix.matrix.Vector2.x"><code class="name">var <span class="ident">x</span> : ~T</code></dt>
+<dd>
+<div class="desc"><p>The first element of the vector
+:return: the first element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def x(self)-&gt;T:
+    &#34;&#34;&#34;
+    The first element of the vector
+    :return: the first element of the vector
+    &#34;&#34;&#34;
+    return self[0]</code></pre>
+</details>
+</dd>
+<dt id="matrix.matrix.Vector2.y"><code class="name">var <span class="ident">y</span> : ~T</code></dt>
+<dd>
+<div class="desc"><p>The second element of the vector
+:return: the second element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def y(self)-&gt;T:
+    &#34;&#34;&#34;
+    The second element of the vector
+    :return: the second element of the vector
+    &#34;&#34;&#34;
+    return self[1]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a></b></code>:
+<ul class="hlist">
+<li><code><a title="matrix.matrix.Vector.create_matrix" href="#matrix.matrix.Matrix.create_matrix">create_matrix</a></code></li>
+<li><code><a title="matrix.matrix.Vector.create_vector" href="#matrix.matrix.Vector.create_vector">create_vector</a></code></li>
+<li><code><a title="matrix.matrix.Vector.m" href="#matrix.matrix.Matrix.m">m</a></code></li>
+<li><code><a title="matrix.matrix.Vector.matrix" href="#matrix.matrix.Matrix.matrix">matrix</a></code></li>
+<li><code><a title="matrix.matrix.Vector.n" href="#matrix.matrix.Matrix.n">n</a></code></li>
+<li><code><a title="matrix.matrix.Vector.transposed" href="#matrix.matrix.Vector.transposed">transposed</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="matrix.matrix.Vector3"><code class="flex name class">
+<span>class <span class="ident">Vector3</span></span>
+<span>(</span><span>x: ~T, y: ~T, z: ~T)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Vector with three elements, useful for 3D physics</p>
+<p>3D vector construct
+:param x: the first element of the vector
+:param y: the second element of the vector
+:param z: the third element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Vector3(Vector[T],Generic[T]):
+    &#34;&#34;&#34;Vector with three elements, useful for 3D physics&#34;&#34;&#34;
+    def __init__(self,x:T,y:T,z:T):
+        &#34;&#34;&#34;
+        3D vector construct
+        :param x: the first element of the vector
+        :param y: the second element of the vector
+        :param z: the third element of the vector
+        &#34;&#34;&#34;
+        super(Vector3, self).__init__([x,y,z])
+
+    @property
+    def x(self)-&gt;T:
+        &#34;&#34;&#34;
+        The first element of the vector
+        :return: the first element of the vector
+        &#34;&#34;&#34;
+        return self[0]
+
+    @property
+    def y(self)-&gt;T:
+        &#34;&#34;&#34;
+        The second element of the vector
+        :return: the second element of the vector
+        &#34;&#34;&#34;
+        return self[1]
+
+    @property
+    def z(self)-&gt;T:
+        &#34;&#34;&#34;
+        The third element of the vector
+        :return: the third element of the vector
+        &#34;&#34;&#34;
+        return self[2]
+
+    def __add__(self, other:&#39;Vector3[T]&#39;)-&gt;&#39;Vector3[T]&#39;:
+        &#34;&#34;&#34;
+        Sum two 3D vectors together
+        :param other: the other 2D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(*super(Vector3, self).__add__(other))
+
+    def __sub__(self, other:&#39;Vector3[T]&#39;)-&gt;&#39;Vector3[T]&#39;:
+        &#34;&#34;&#34;
+        Subtract two 3D vectors together
+        :param other: the other 3D vector to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(*super(Vector3, self).__sub__(other))
+
+    def __neg__(self)-&gt;&#39;Vector3[T]&#39;:
+        &#34;&#34;&#34;
+        The negative of the vector
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(*super(Vector3, self).__neg__())
+
+    def __mul__(self, other)-&gt;Union[&#39;Vector3[T]&#39;,T]:
+        &#34;&#34;&#34;
+        Multiply two vectors together with a dot product or multiply every element of the vector with a number
+        :param other: the 3D vector or the number to use
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        if isinstance(other,Vector):
+            return super(Vector3, self).__mul__(other)
+        else:
+            return Vector3(*super(Vector3, self).__mul__(other))
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        Create a string representation of this 3D vector
+        :return: the string representation of the 3D vector
+        &#34;&#34;&#34;
+        return str((self.x,self.y,self.z))
+
+    def __pow__(self, power:&#39;Vector3&#39;, modulo=None)-&gt;&#39;Vector3&#39;:
+        &#34;&#34;&#34;
+        Perform the cross product between two 3D vectors
+        :param power: the other vector
+        :param modulo: unused
+        :return: the resulting vector
+        &#34;&#34;&#34;
+        return Vector3(self.y*power.z-self.z*power.y,self.z*power.x-self.x*power.z,self.x*power.y-self.y*power.x)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a></li>
+<li><a title="matrix.matrix.Matrix" href="#matrix.matrix.Matrix">Matrix</a></li>
+<li>typing.Generic</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="matrix.matrix.Vector3.x"><code class="name">var <span class="ident">x</span> : ~T</code></dt>
+<dd>
+<div class="desc"><p>The first element of the vector
+:return: the first element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def x(self)-&gt;T:
+    &#34;&#34;&#34;
+    The first element of the vector
+    :return: the first element of the vector
+    &#34;&#34;&#34;
+    return self[0]</code></pre>
+</details>
+</dd>
+<dt id="matrix.matrix.Vector3.y"><code class="name">var <span class="ident">y</span> : ~T</code></dt>
+<dd>
+<div class="desc"><p>The second element of the vector
+:return: the second element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def y(self)-&gt;T:
+    &#34;&#34;&#34;
+    The second element of the vector
+    :return: the second element of the vector
+    &#34;&#34;&#34;
+    return self[1]</code></pre>
+</details>
+</dd>
+<dt id="matrix.matrix.Vector3.z"><code class="name">var <span class="ident">z</span> : ~T</code></dt>
+<dd>
+<div class="desc"><p>The third element of the vector
+:return: the third element of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def z(self)-&gt;T:
+    &#34;&#34;&#34;
+    The third element of the vector
+    :return: the third element of the vector
+    &#34;&#34;&#34;
+    return self[2]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a></b></code>:
+<ul class="hlist">
+<li><code><a title="matrix.matrix.Vector.create_matrix" href="#matrix.matrix.Matrix.create_matrix">create_matrix</a></code></li>
+<li><code><a title="matrix.matrix.Vector.create_vector" href="#matrix.matrix.Vector.create_vector">create_vector</a></code></li>
+<li><code><a title="matrix.matrix.Vector.m" href="#matrix.matrix.Matrix.m">m</a></code></li>
+<li><code><a title="matrix.matrix.Vector.matrix" href="#matrix.matrix.Matrix.matrix">matrix</a></code></li>
+<li><code><a title="matrix.matrix.Vector.n" href="#matrix.matrix.Matrix.n">n</a></code></li>
+<li><code><a title="matrix.matrix.Vector.transposed" href="#matrix.matrix.Vector.transposed">transposed</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="matrix.matrix.Matrix" href="#matrix.matrix.Matrix">Matrix</a></code></h4>
+<ul class="">
+<li><code><a title="matrix.matrix.Matrix.create_matrix" href="#matrix.matrix.Matrix.create_matrix">create_matrix</a></code></li>
+<li><code><a title="matrix.matrix.Matrix.m" href="#matrix.matrix.Matrix.m">m</a></code></li>
+<li><code><a title="matrix.matrix.Matrix.matrix" href="#matrix.matrix.Matrix.matrix">matrix</a></code></li>
+<li><code><a title="matrix.matrix.Matrix.n" href="#matrix.matrix.Matrix.n">n</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="matrix.matrix.Vector" href="#matrix.matrix.Vector">Vector</a></code></h4>
+<ul class="">
+<li><code><a title="matrix.matrix.Vector.create_vector" href="#matrix.matrix.Vector.create_vector">create_vector</a></code></li>
+<li><code><a title="matrix.matrix.Vector.transposed" href="#matrix.matrix.Vector.transposed">transposed</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="matrix.matrix.Vector2" href="#matrix.matrix.Vector2">Vector2</a></code></h4>
+<ul class="">
+<li><code><a title="matrix.matrix.Vector2.x" href="#matrix.matrix.Vector2.x">x</a></code></li>
+<li><code><a title="matrix.matrix.Vector2.y" href="#matrix.matrix.Vector2.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="matrix.matrix.Vector3" href="#matrix.matrix.Vector3">Vector3</a></code></h4>
+<ul class="">
+<li><code><a title="matrix.matrix.Vector3.x" href="#matrix.matrix.Vector3.x">x</a></code></li>
+<li><code><a title="matrix.matrix.Vector3.y" href="#matrix.matrix.Vector3.y">y</a></code></li>
+<li><code><a title="matrix.matrix.Vector3.z" href="#matrix.matrix.Vector3.z">z</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
