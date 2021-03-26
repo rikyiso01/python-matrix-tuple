@@ -13,7 +13,7 @@ class GenerateDocs(Command):
         pass
 
     def run(self) -> None:
-        run([executable,'-m','pdoc','--docformat','google','-o','docs','matrix'],check=True)
+        run([executable,'-m','pdoc','-d','google','-o','docs','matrix'],check=True)
 
 class Publish(Command):
     user_options=[]
@@ -30,7 +30,7 @@ class Publish(Command):
         version=version[:version.find(',')-1]
         print(version)
         changelog:str=input('Write the changelog:')
-        #run([executable,'setup.py','bdist_wheel'])
+        # run([executable,'setup.py','bdist_wheel'])
 
 
 with open("README.md", 'r') as f:
@@ -45,7 +45,7 @@ setup(
     author='Riccardo Isola',
     author_email='riky.isola@gmail.com',
     url="https://github.com/RikyIsola/python-matrix-tuple",
-    project_urls={'Documentation': 'https://rikyisola.github.io/python-matrix-tuple/'},
+    project_urls={'Documentation': 'https://rikyisola.github.io/python-matrix-tuple/matrix/matrix.html'},
     packages=find_packages(),
     cmdclass={'docs':GenerateDocs,'publish':Publish}
 )
