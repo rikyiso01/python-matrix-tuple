@@ -29,7 +29,7 @@ with open("README.md", 'r') as f:
 
 setup(
     name='matrix-tuple',
-    version='1.0',
+    version='1.1',
     description='A python matrix implementation with tuple',
     license="GPL-3",
     long_description=long_description,
