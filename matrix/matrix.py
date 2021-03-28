@@ -5,7 +5,7 @@ T=TypeVar('T')
 class Matrix(Generic[T]):
     """Representation of a matrix that support mathematical operations"""
     @classmethod
-    def create_matrix(cls,n:int,m:int,function:Callable[[],T]=lambda:.0)->'Matrix[T]':
+    def create_matrix(cls,n:int,m:int,function:Callable[[int,int],T]=lambda i,j:.0)->'Matrix[T]':
         """
         Create a matrix using values generated from the given function
         Args:
@@ -15,7 +15,7 @@ class Matrix(Generic[T]):
         Returns:
             A new matrix with the given properties
         """
-        return Matrix([[function() for _ in range(m)] for _ in range(n)])
+        return Matrix([[function(i,j) for j in range(m)] for i in range(n)])
 
     def __init__(self,matrix:Iterable[Iterable[T]]):
         """
@@ -48,6 +48,15 @@ class Matrix(Generic[T]):
             The number of rows
         """
         return len(self._matrix)
+
+    @property
+    def sizes(self)->tuple[int,int]:
+        """
+        The number of rows and columns as a tuple
+        Returns:
+            The number of rows and columns as a tuple
+        """
+        return self.n,self.m
 
     @property
     def matrix(self)->tuple[tuple[T]]:

@@ -1,37 +1,27 @@
 from setuptools import setup,find_packages
-from distutils.cmd import Command
-from subprocess import run
-from sys import executable
+from pdoc import pdoc
+from pdoc.render import configure
+from pathlib import Path
+from distutils_commands import publish_pypi,publish_github,clean,pytest,command,source,wheel
+from os.path import join
 
-class GenerateDocs(Command):
-    user_options=[]
+@command
+def docs():
+    configure(docformat='google')
+    pdoc('matrix',output_directory=Path('docs'))
 
-    def initialize_options(self) -> None:
-        pass
+@command
+def publish():
+    test()
+    wheel()
+    source()
+    publish_pypi()
+    publish_github()
+    clean()
 
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        run([executable,'-m','pdoc','-d','google','-o','docs','matrix'],check=True)
-
-class Publish(Command):
-    user_options=[]
-
-    def initialize_options(self) -> None:
-        pass
-
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        version:str=[line for line in open('setup.py').readlines() if 'version' in line][-1].strip().replace(' ','')
-        version=version[version.find('version=')+9:]
-        version=version[:version.find(',')-1]
-        print(version)
-        changelog:str=input('Write the changelog:')
-        # run([executable,'setup.py','bdist_wheel'])
-
+@command
+def test():
+    pytest(join('tests','tests.py'))
 
 with open("README.md", 'r') as f:
     long_description = f.read()
@@ -42,10 +32,20 @@ setup(
     description='A python matrix implementation with tuple',
     license="GPL-3",
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Riccardo Isola',
     author_email='riky.isola@gmail.com',
     url="https://github.com/RikyIsola/python-matrix-tuple",
-    project_urls={'Documentation': 'https://rikyisola.github.io/python-matrix-tuple/matrix/matrix.html'},
+    project_urls={
+        'Documentation': 'https://rikyisola.github.io/python-matrix-tuple/matrix/matrix.html',
+        'Tracker':'https://github.com/RikyIsola/python-matrix-tuple/issues'},
     packages=find_packages(),
-    cmdclass={'docs':GenerateDocs,'publish':Publish}
+    cmdclass={'docs':docs,'publish':publish,'test':test},
+    classifiers=['Development Status :: 4 - Beta',
+                 'Intended Audience :: Developers',
+                 'Topic :: Scientific/Engineering :: Mathematics',
+                 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+                 'Programming Language :: Python :: 3.9'],
+    keywords='matrix tuple vector vectors vector2 vector3',
+    python_requires='>=3.9',
 )

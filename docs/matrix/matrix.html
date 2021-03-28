@@ -43,6 +43,9 @@
                                 <a class="variable" href="#Matrix.n">n</a>
                         </li>
                         <li>
+                                <a class="variable" href="#Matrix.sizes">sizes</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#Matrix.matrix">matrix</a>
                         </li>
                 </ul>
@@ -121,7 +124,7 @@
 <span class="k">class</span> <span class="nc">Matrix</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Representation of a matrix that support mathematical operations&quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix using values generated from the given function</span>
 <span class="sd">        Args:</span>
@@ -131,7 +134,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A new matrix with the given properties</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">function</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -164,6 +167,15 @@
 <span class="sd">            The number of rows</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of rows and columns as a tuple</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The number of rows and columns as a tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">]]:</span>
@@ -637,7 +649,7 @@
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Matrix</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Representation of a matrix that support mathematical operations&quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix using values generated from the given function</span>
 <span class="sd">        Args:</span>
@@ -647,7 +659,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A new matrix with the given properties</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">function</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -680,6 +692,15 @@
 <span class="sd">            The number of rows</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of rows and columns as a tuple</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The number of rows and columns as a tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">]]:</span>
@@ -889,14 +910,14 @@
     cls,
     n: int,
     m: int,
-    function: Callable[[], ~T] = &lt;function Matrix.&lt;lambda&gt;&gt;
+    function: Callable[[int, int], ~T] = &lt;function Matrix.&lt;lambda&gt;&gt;
 ) -&gt; <a href="#Matrix">matrix.matrix.Matrix</a>[~T]</span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix using values generated from the given function</span>
 <span class="sd">        Args:</span>
@@ -906,7 +927,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A new matrix with the given properties</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">function</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
 </pre></div>
 
         </details>
@@ -959,6 +980,23 @@
 
 <blockquote>
   <p>The number of rows</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Matrix.sizes" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Matrix.sizes">#&nbsp;&nbsp</a>
+
+        <span class="name">sizes</span><span class="annotation">: tuple[int, int]</span>
+    </div>
+
+            <div class="docstring"><p>The number of rows and columns as a tuple</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The number of rows and columns as a tuple</p>
 </blockquote>
 </div>
 
@@ -1248,6 +1286,7 @@
                                 <dd id="Vector.create_matrix" class="function"><a href="#Matrix.create_matrix">create_matrix</a></dd>
                 <dd id="Vector.m" class="variable"><a href="#Matrix.m">m</a></dd>
                 <dd id="Vector.n" class="variable"><a href="#Matrix.n">n</a></dd>
+                <dd id="Vector.sizes" class="variable"><a href="#Matrix.sizes">sizes</a></dd>
                 <dd id="Vector.matrix" class="variable"><a href="#Matrix.matrix">matrix</a></dd>
 
             </div>
@@ -1468,6 +1507,7 @@
                                 <dd id="Vector3.create_matrix" class="function"><a href="#Matrix.create_matrix">create_matrix</a></dd>
                 <dd id="Vector3.m" class="variable"><a href="#Matrix.m">m</a></dd>
                 <dd id="Vector3.n" class="variable"><a href="#Matrix.n">n</a></dd>
+                <dd id="Vector3.sizes" class="variable"><a href="#Matrix.sizes">sizes</a></dd>
                 <dd id="Vector3.matrix" class="variable"><a href="#Matrix.matrix">matrix</a></dd>
 
             </div>
@@ -1648,6 +1688,7 @@
                                 <dd id="Vector2.create_matrix" class="function"><a href="#Matrix.create_matrix">create_matrix</a></dd>
                 <dd id="Vector2.m" class="variable"><a href="#Matrix.m">m</a></dd>
                 <dd id="Vector2.n" class="variable"><a href="#Matrix.n">n</a></dd>
+                <dd id="Vector2.sizes" class="variable"><a href="#Matrix.sizes">sizes</a></dd>
                 <dd id="Vector2.matrix" class="variable"><a href="#Matrix.matrix">matrix</a></dd>
 
             </div>
