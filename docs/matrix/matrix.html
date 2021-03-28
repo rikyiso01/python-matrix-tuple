@@ -63,6 +63,9 @@
                         <li>
                                 <a class="variable" href="#Vector.transposed">transposed</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#Vector.unit">unit</a>
+                        </li>
                 </ul>
 
             </li>
@@ -81,6 +84,9 @@
                         <li>
                                 <a class="variable" href="#Vector3.z">z</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#Vector3.unit">unit</a>
+                        </li>
                 </ul>
 
             </li>
@@ -95,6 +101,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#Vector2.y">y</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Vector2.unit">unit</a>
                         </li>
                 </ul>
 
@@ -118,6 +127,7 @@
                         <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span><span class="n">TypeVar</span><span class="p">,</span><span class="n">Iterator</span><span class="p">,</span><span class="n">Iterable</span><span class="p">,</span><span class="n">Callable</span><span class="p">,</span><span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 
 <span class="n">T</span><span class="o">=</span><span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
@@ -398,7 +408,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        Raises:</span>
-<span class="sd">            ArithmeticError: If the vector have different lengths</span>
+<span class="sd">            ArithmeticError: If the vectors have different lengths</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
 
@@ -453,6 +463,28 @@
 <span class="sd">            The iterator to use</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">([</span><span class="bp">self</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))])</span>
+
+    <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the norm of the vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The norm of the vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the unit vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The unit vector</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">norm</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">norm</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t calculate the unit vector of a zero vector&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">/</span><span class="n">norm</span>
 
 <span class="k">class</span> <span class="nc">Vector3</span><span class="p">(</span><span class="n">Vector</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Vector with three elements, useful for 3D physics&quot;&quot;&quot;</span>
@@ -553,6 +585,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">z</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">z</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the unit vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The unit vector</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
+
 <span class="k">class</span> <span class="nc">Vector2</span><span class="p">(</span><span class="n">Vector</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Vector with two elements, useful for 2D physics&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
@@ -630,6 +673,17 @@
 <span class="sd">            The string representation of the 2D vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the unit vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The unit vector</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
 </pre></div>
 
         </details>
@@ -1102,7 +1156,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        Raises:</span>
-<span class="sd">            ArithmeticError: If the vector have different lengths</span>
+<span class="sd">            ArithmeticError: If the vectors have different lengths</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
 
@@ -1157,6 +1211,28 @@
 <span class="sd">            The iterator to use</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">([</span><span class="bp">self</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))])</span>
+
+    <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the norm of the vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The norm of the vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the unit vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The unit vector</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">norm</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">norm</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t calculate the unit vector of a zero vector&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">/</span><span class="n">norm</span>
 </pre></div>
 
         </details>
@@ -1275,6 +1351,29 @@
 <blockquote>
   <p>If the vector is a column instead of a row</p>
 </blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Vector.unit" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Vector.unit">#&nbsp;&nbsp</a>
+
+        <span class="name">unit</span><span class="annotation">: <a href="#Vector">matrix.matrix.Vector</a>[~T]</span>
+    </div>
+
+            <div class="docstring"><p>Calculate the unit vector</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The unit vector</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ArithmeticError:</strong>  If the vector is a zero vector</li>
+</ul>
 </div>
 
 
@@ -1402,6 +1501,17 @@
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">z</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">z</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">*</span><span class="n">power</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the unit vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The unit vector</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
 </pre></div>
 
         </details>
@@ -1491,6 +1601,29 @@
 <blockquote>
   <p>The third element of the vector</p>
 </blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Vector3.unit" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Vector3.unit">#&nbsp;&nbsp</a>
+
+        <span class="name">unit</span><span class="annotation">: <a href="#Vector3">matrix.matrix.Vector3</a>[~T]</span>
+    </div>
+
+            <div class="docstring"><p>Calculate the unit vector</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The unit vector</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ArithmeticError:</strong>  If the vector is a zero vector</li>
+</ul>
 </div>
 
 
@@ -1602,6 +1735,17 @@
 <span class="sd">            The string representation of the 2D vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the unit vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The unit vector</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
 </pre></div>
 
         </details>
@@ -1672,6 +1816,29 @@
 <blockquote>
   <p>The second element of the vector</p>
 </blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Vector2.unit" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Vector2.unit">#&nbsp;&nbsp</a>
+
+        <span class="name">unit</span><span class="annotation">: <a href="#Vector2">matrix.matrix.Vector2</a>[~T]</span>
+    </div>
+
+            <div class="docstring"><p>Calculate the unit vector</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The unit vector</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ArithmeticError:</strong>  If the vector is a zero vector</li>
+</ul>
 </div>
 
 

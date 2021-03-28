@@ -1,4 +1,5 @@
 from typing import Generic,TypeVar,Iterator,Iterable,Callable,Union
+from math import sqrt
 
 T=TypeVar('T')
 
@@ -279,7 +280,7 @@ class Vector(Matrix[T],Generic[T]):
         Returns:
             The resulting vector
         Raises:
-            ArithmeticError: If the vector have different lengths
+            ArithmeticError: If the vectors have different lengths
         """
         return Vector(super(Vector, self).__sub__(other))
 
@@ -334,6 +335,28 @@ class Vector(Matrix[T],Generic[T]):
             The iterator to use
         """
         return iter([self[a] for a in range(len(self))])
+
+    def __abs__(self)->float:
+        """
+        Calculate the norm of the vector
+        Returns:
+            The norm of the vector
+        """
+        return sqrt(sum(n**2 for n in self))
+
+    @property
+    def unit(self)->'Vector[T]':
+        """
+        Calculate the unit vector
+        Returns:
+            The unit vector
+        Raises:
+            ArithmeticError: If the vector is a zero vector
+        """
+        norm=abs(self)
+        if norm==0:
+            raise ArithmeticError("Can't calculate the unit vector of a zero vector")
+        return self/norm
 
 class Vector3(Vector[T],Generic[T]):
     """Vector with three elements, useful for 3D physics"""
@@ -434,6 +457,17 @@ class Vector3(Vector[T],Generic[T]):
         """
         return Vector3(self.y*power.z-self.z*power.y,self.z*power.x-self.x*power.z,self.x*power.y-self.y*power.x)
 
+    @property
+    def unit(self)->'Vector3[T]':
+        """
+        Calculate the unit vector
+        Returns:
+            The unit vector
+        Raises:
+            ArithmeticError: If the vector is a zero vector
+        """
+        return Vector3(*super(Vector3, self).unit())
+
 class Vector2(Vector[T],Generic[T]):
     """Vector with two elements, useful for 2D physics"""
     def __init__(self,x:T,y:T):
@@ -511,3 +545,14 @@ class Vector2(Vector[T],Generic[T]):
             The string representation of the 2D vector
         """
         return str((self.x,self.y))
+
+    @property
+    def unit(self)->'Vector2[T]':
+        """
+        Calculate the unit vector
+        Returns:
+            The unit vector
+        Raises:
+            ArithmeticError: If the vector is a zero vector
+        """
+        return Vector2(*super(Vector2, self).unit())

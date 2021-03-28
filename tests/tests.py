@@ -46,4 +46,11 @@ class TestMatrix:
     def test_iter(self):
         assert tuple(vector[0] for vector in Matrix([[0],[1],[2]]))==(0,1,2)
 
+class TestVector:
+    def test_unit(self):
+        assert Vector([2,0,0]).unit==Vector([1,0,0])
+        assert Vector([1,1,1,1]).unit==Vector([.5,.5,.5,.5])
+        with raises(ArithmeticError):
+            print(Vector([0,0,0]).unit)
+
 # TODO: Finish tests
