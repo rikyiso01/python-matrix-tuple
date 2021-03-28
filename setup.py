@@ -13,6 +13,7 @@ def docs():
 @command
 def publish():
     test()
+    docs()
     wheel()
     source()
     publish_pypi()
