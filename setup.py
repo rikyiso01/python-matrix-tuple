@@ -16,8 +16,8 @@ def publish():
     docs()
     wheel()
     source()
-    publish_pypi()
     publish_github()
+    publish_pypi()
     clean()
 
 @command
