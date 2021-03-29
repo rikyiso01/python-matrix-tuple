@@ -132,7 +132,7 @@
                 
                         <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span><span class="n">TypeVar</span><span class="p">,</span><span class="n">Iterator</span><span class="p">,</span><span class="n">Iterable</span><span class="p">,</span><span class="n">Callable</span><span class="p">,</span><span class="n">Union</span>
+            <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span><span class="n">TypeVar</span><span class="p">,</span><span class="n">Iterator</span><span class="p">,</span><span class="n">Iterable</span><span class="p">,</span><span class="n">Callable</span><span class="p">,</span><span class="n">Union</span><span class="p">,</span><span class="n">SupportsAbs</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span><span class="n">acos</span>
 
 <span class="n">T</span><span class="o">=</span><span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
@@ -140,9 +140,10 @@
 <span class="k">class</span> <span class="nc">Matrix</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Representation of a matrix that support mathematical operations&quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix using values generated from the given function</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            n: The rows of the matrix</span>
 <span class="sd">            m: The columns of the matrix</span>
@@ -155,6 +156,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Matrix constructor</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            matrix: An iterable of iterables to use as a template</span>
 <span class="sd">        Raises:</span>
@@ -170,6 +172,7 @@
     <span class="k">def</span> <span class="nf">m</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of columns</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The number of columns</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -179,6 +182,7 @@
     <span class="k">def</span> <span class="nf">n</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of rows</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The number of rows</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -188,6 +192,7 @@
     <span class="k">def</span> <span class="nf">sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of rows and columns as a tuple</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The number of rows and columns as a tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -197,6 +202,7 @@
     <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Representation of the matrix as a touple of touples</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The touple of touples</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -205,6 +211,7 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract a vector from a matrix row</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            n: The row number</span>
 <span class="sd">        Returns:</span>
@@ -215,6 +222,7 @@
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract a vector from a matrix column</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m: The column number</span>
 <span class="sd">        Returns:</span>
@@ -225,6 +233,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two matrix</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The matrix to sum</span>
 <span class="sd">        Returns:</span>
@@ -239,6 +248,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A matrix which has all elements negated</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -247,6 +257,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two matrix</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The matrix to subtract</span>
 <span class="sd">        Returns:</span>
@@ -259,6 +270,7 @@
     <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix with columns and rows inverted</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -267,6 +279,7 @@
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over every vector of the matrix</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The iterator of vectors</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -275,6 +288,7 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the matrix product between two matrix or multiply every element of the matrix with a constant</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The matrix or the number to use</span>
 <span class="sd">        Returns:</span>
@@ -293,6 +307,7 @@
     <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Divide every element of the matrix with a number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The number to divide against</span>
 <span class="sd">        Returns:</span>
@@ -303,6 +318,7 @@
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the hash code of the matrix</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The hash code</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -311,6 +327,7 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a string representation of the matrix</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A string representing the matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -329,6 +346,7 @@
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the given object is equal to this matrix</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The object to check</span>
 <span class="sd">        Returns:</span>
@@ -343,12 +361,13 @@
         <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">Matrix</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">Matrix</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">SupportsAbs</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;A single row or column of a matrix&quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">length</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">length</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a vector by using a function to generate the values</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            length: The length of the vector</span>
 <span class="sd">            function: The function to use to generate the values</span>
@@ -360,6 +379,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vector</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">transposed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Vector constructor</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            vector: A list of elements to use to create the matrix or a matrix with a single column or row</span>
 <span class="sd">            transposed: If the matrix should be a column instead of a row</span>
@@ -381,6 +401,7 @@
     <span class="k">def</span> <span class="nf">transposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If the vector is a column instead of a row</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            If the vector is a column instead of a row</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -389,6 +410,7 @@
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The length of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The length of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -397,6 +419,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other vector to sum</span>
 <span class="sd">        Returns:</span>
@@ -409,6 +432,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two vectors</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other vector to subtract</span>
 <span class="sd">        Returns:</span>
@@ -421,6 +445,7 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get an element from the vector</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            item: The index of the element</span>
 <span class="sd">        Returns:</span>
@@ -434,6 +459,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a vector which has all elements negated</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -442,21 +468,26 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply this vector with another vector performing a dot product or with a number multiplying every element</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The vector or the number to use</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span><span class="n">Vector</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="o">==</span><span class="n">other</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">=</span><span class="bp">self</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+                <span class="n">a</span><span class="o">=~</span><span class="n">a</span>
+            <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
                 <span class="n">other</span><span class="o">=~</span><span class="n">other</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transpose this vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -465,6 +496,7 @@
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over every element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The iterator to use</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -473,6 +505,7 @@
     <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the norm of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The norm of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -482,6 +515,7 @@
     <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the unit vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The unit vector</span>
 <span class="sd">        Raises:</span>
@@ -497,6 +531,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">z</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        3D vector construct</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: The first element of the vector</span>
 <span class="sd">            y: The second element of the vector</span>
@@ -508,6 +543,7 @@
     <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The first element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The first element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -517,6 +553,7 @@
     <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The second element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The second element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -526,6 +563,7 @@
     <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The third element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The third element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -534,6 +572,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two 3D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 2D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -544,6 +583,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two 3D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 3D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -554,6 +594,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The negative of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -562,6 +603,7 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply two vectors together with a dot product or multiply every element of the vector with a number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The 3D vector or the number to use</span>
 <span class="sd">        Returns:</span>
@@ -575,6 +617,7 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a string representation of this 3D vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The string representation of the 3D vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -583,6 +626,7 @@
     <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span><span class="s1">&#39;Vector3&#39;</span><span class="p">,</span> <span class="n">modulo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the cross product between two 3D vectors</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            power: The other vector</span>
 <span class="sd">            modulo: Unused</span>
@@ -595,6 +639,7 @@
     <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the unit vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The unit vector</span>
 <span class="sd">        Raises:</span>
@@ -607,6 +652,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        2D vector construct</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: The first element of the vector</span>
 <span class="sd">            y: The second element of the vector</span>
@@ -617,6 +663,7 @@
     <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The first element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The first element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -626,6 +673,7 @@
     <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The second element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The second element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -635,6 +683,7 @@
     <span class="k">def</span> <span class="nf">polar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the vector to polar coordinate system</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The polar coordinates</span>
 <span class="sd">        Raises:</span>
@@ -644,12 +693,13 @@
         <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t calculate the angle of a zero vector&quot;</span><span class="p">)</span>
         <span class="n">result</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">result</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">result</span>
+        <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">result</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">result</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the angle of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The angle</span>
 <span class="sd">        Raises:</span>
@@ -660,6 +710,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two 2D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 2D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -670,6 +721,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two 2D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 2D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -680,6 +732,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The negative of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -688,6 +741,7 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply two vectors together with a dot product or multiply every element of the vector with a number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The 2D vector or the number to use</span>
 <span class="sd">        Returns:</span>
@@ -701,6 +755,7 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a string representation of this 2D vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The string representation of the 2D vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -710,6 +765,7 @@
     <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the unit vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The unit vector</span>
 <span class="sd">        Raises:</span>
@@ -735,9 +791,10 @@
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Matrix</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Representation of a matrix that support mathematical operations&quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix using values generated from the given function</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            n: The rows of the matrix</span>
 <span class="sd">            m: The columns of the matrix</span>
@@ -750,6 +807,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Matrix constructor</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            matrix: An iterable of iterables to use as a template</span>
 <span class="sd">        Raises:</span>
@@ -765,6 +823,7 @@
     <span class="k">def</span> <span class="nf">m</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of columns</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The number of columns</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -774,6 +833,7 @@
     <span class="k">def</span> <span class="nf">n</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of rows</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The number of rows</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -783,6 +843,7 @@
     <span class="k">def</span> <span class="nf">sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of rows and columns as a tuple</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The number of rows and columns as a tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -792,6 +853,7 @@
     <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Representation of the matrix as a touple of touples</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The touple of touples</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -800,6 +862,7 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract a vector from a matrix row</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            n: The row number</span>
 <span class="sd">        Returns:</span>
@@ -810,6 +873,7 @@
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract a vector from a matrix column</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m: The column number</span>
 <span class="sd">        Returns:</span>
@@ -820,6 +884,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two matrix</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The matrix to sum</span>
 <span class="sd">        Returns:</span>
@@ -834,6 +899,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A matrix which has all elements negated</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -842,6 +908,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two matrix</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The matrix to subtract</span>
 <span class="sd">        Returns:</span>
@@ -854,6 +921,7 @@
     <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix with columns and rows inverted</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -862,6 +930,7 @@
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over every vector of the matrix</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The iterator of vectors</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -870,6 +939,7 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the matrix product between two matrix or multiply every element of the matrix with a constant</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The matrix or the number to use</span>
 <span class="sd">        Returns:</span>
@@ -888,6 +958,7 @@
     <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Divide every element of the matrix with a number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The number to divide against</span>
 <span class="sd">        Returns:</span>
@@ -898,6 +969,7 @@
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the hash code of the matrix</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The hash code</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -906,6 +978,7 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a string representation of the matrix</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A string representing the matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -924,6 +997,7 @@
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the given object is equal to this matrix</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The object to check</span>
 <span class="sd">        Returns:</span>
@@ -955,6 +1029,7 @@
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Matrix constructor</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            matrix: An iterable of iterables to use as a template</span>
 <span class="sd">        Raises:</span>
@@ -1003,9 +1078,10 @@
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">m</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Matrix[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a matrix using values generated from the given function</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            n: The rows of the matrix</span>
 <span class="sd">            m: The columns of the matrix</span>
@@ -1112,17 +1188,18 @@
 
         
         <span class="def">class</span>
-        <span class="name">Vector</span>(<span class="base"><a href="#Matrix">matrix.matrix.Matrix[~T]</a></span>, <span class="base">typing.Generic[~T]</span>):
+        <span class="name">Vector</span>(<span class="base"><a href="#Matrix">matrix.matrix.Matrix[~T]</a></span>, <span class="base">typing.Generic[~T]</span>, <span class="base">typing.SupportsAbs[int]</span>):
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">Matrix</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+            <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">Matrix</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">SupportsAbs</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;A single row or column of a matrix&quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">length</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">length</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a vector by using a function to generate the values</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            length: The length of the vector</span>
 <span class="sd">            function: The function to use to generate the values</span>
@@ -1134,6 +1211,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vector</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">transposed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Vector constructor</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            vector: A list of elements to use to create the matrix or a matrix with a single column or row</span>
 <span class="sd">            transposed: If the matrix should be a column instead of a row</span>
@@ -1155,6 +1233,7 @@
     <span class="k">def</span> <span class="nf">transposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If the vector is a column instead of a row</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            If the vector is a column instead of a row</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1163,6 +1242,7 @@
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The length of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The length of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1171,6 +1251,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other vector to sum</span>
 <span class="sd">        Returns:</span>
@@ -1183,6 +1264,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two vectors</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other vector to subtract</span>
 <span class="sd">        Returns:</span>
@@ -1195,6 +1277,7 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get an element from the vector</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            item: The index of the element</span>
 <span class="sd">        Returns:</span>
@@ -1208,6 +1291,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a vector which has all elements negated</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1216,21 +1300,26 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply this vector with another vector performing a dot product or with a number multiplying every element</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The vector or the number to use</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span><span class="n">Vector</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="o">==</span><span class="n">other</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">=</span><span class="bp">self</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+                <span class="n">a</span><span class="o">=~</span><span class="n">a</span>
+            <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
                 <span class="n">other</span><span class="o">=~</span><span class="n">other</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transpose this vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1239,6 +1328,7 @@
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over every element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The iterator to use</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1247,6 +1337,7 @@
     <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the norm of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The norm of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1256,6 +1347,7 @@
     <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the unit vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The unit vector</span>
 <span class="sd">        Raises:</span>
@@ -1284,6 +1376,7 @@
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vector</span><span class="p">:</span><span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">transposed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Vector constructor</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            vector: A list of elements to use to create the matrix or a matrix with a single column or row</span>
 <span class="sd">            transposed: If the matrix should be a column instead of a row</span>
@@ -1338,9 +1431,10 @@
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">length</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">length</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">[[],</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a vector by using a function to generate the values</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            length: The length of the vector</span>
 <span class="sd">            function: The function to use to generate the values</span>
@@ -1440,6 +1534,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">z</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        3D vector construct</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: The first element of the vector</span>
 <span class="sd">            y: The second element of the vector</span>
@@ -1451,6 +1546,7 @@
     <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The first element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The first element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1460,6 +1556,7 @@
     <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The second element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The second element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1469,6 +1566,7 @@
     <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The third element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The third element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1477,6 +1575,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two 3D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 2D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -1487,6 +1586,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two 3D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 3D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -1497,6 +1597,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The negative of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1505,6 +1606,7 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply two vectors together with a dot product or multiply every element of the vector with a number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The 3D vector or the number to use</span>
 <span class="sd">        Returns:</span>
@@ -1518,6 +1620,7 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a string representation of this 3D vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The string representation of the 3D vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1526,6 +1629,7 @@
     <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span><span class="s1">&#39;Vector3&#39;</span><span class="p">,</span> <span class="n">modulo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the cross product between two 3D vectors</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            power: The other vector</span>
 <span class="sd">            modulo: Unused</span>
@@ -1538,6 +1642,7 @@
     <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector3[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the unit vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The unit vector</span>
 <span class="sd">        Raises:</span>
@@ -1563,6 +1668,7 @@
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">z</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        3D vector construct</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: The first element of the vector</span>
 <span class="sd">            y: The second element of the vector</span>
@@ -1695,6 +1801,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        2D vector construct</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: The first element of the vector</span>
 <span class="sd">            y: The second element of the vector</span>
@@ -1705,6 +1812,7 @@
     <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The first element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The first element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1714,6 +1822,7 @@
     <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">T</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The second element of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The second element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1723,6 +1832,7 @@
     <span class="k">def</span> <span class="nf">polar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the vector to polar coordinate system</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The polar coordinates</span>
 <span class="sd">        Raises:</span>
@@ -1732,12 +1842,13 @@
         <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t calculate the angle of a zero vector&quot;</span><span class="p">)</span>
         <span class="n">result</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">result</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">result</span>
+        <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">result</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">result</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the angle of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The angle</span>
 <span class="sd">        Raises:</span>
@@ -1748,6 +1859,7 @@
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two 2D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 2D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -1758,6 +1870,7 @@
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract two 2D vectors together</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The other 2D vector to use</span>
 <span class="sd">        Returns:</span>
@@ -1768,6 +1881,7 @@
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The negative of the vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The resulting vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1776,6 +1890,7 @@
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply two vectors together with a dot product or multiply every element of the vector with a number</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other: The 2D vector or the number to use</span>
 <span class="sd">        Returns:</span>
@@ -1789,6 +1904,7 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a string representation of this 2D vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The string representation of the 2D vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1798,6 +1914,7 @@
     <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the unit vector</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The unit vector</span>
 <span class="sd">        Raises:</span>
@@ -1823,6 +1940,7 @@
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">T</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">T</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        2D vector construct</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: The first element of the vector</span>
 <span class="sd">            y: The second element of the vector</span>

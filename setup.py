@@ -8,13 +8,13 @@ def docs():
 
 
 @command('publish')
-def publish():
+def publish(changelog:str):
     clean()
     test()
     docs()
     wheel()
     source()
-    publish_github()
+    publish_github(changelog)
     publish_pypi()
     clean()
 
@@ -27,7 +27,7 @@ with open("README.md", 'r') as f:
 
 setup(
     name='matrix-tuple',
-    version='1.2',
+    version='1.3',
     description='A python matrix implementation with tuple',
     license="GPL-3",
     long_description=long_description,
