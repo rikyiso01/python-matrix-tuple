@@ -103,6 +103,12 @@
                                 <a class="variable" href="#Vector2.y">y</a>
                         </li>
                         <li>
+                                <a class="variable" href="#Vector2.polar">polar</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Vector2.angle">angle</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#Vector2.unit">unit</a>
                         </li>
                 </ul>
@@ -127,7 +133,7 @@
                         <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span><span class="n">TypeVar</span><span class="p">,</span><span class="n">Iterator</span><span class="p">,</span><span class="n">Iterable</span><span class="p">,</span><span class="n">Callable</span><span class="p">,</span><span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span><span class="n">acos</span>
 
 <span class="n">T</span><span class="o">=</span><span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
@@ -594,7 +600,7 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            ArithmeticError: If the vector is a zero vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Vector2</span><span class="p">(</span><span class="n">Vector</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Vector with two elements, useful for 2D physics&quot;&quot;&quot;</span>
@@ -624,6 +630,32 @@
 <span class="sd">            The second element of the vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">polar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the vector to polar coordinate system</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The polar coordinates</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t calculate the angle of a zero vector&quot;</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">result</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">result</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the angle of the vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The angle</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">polar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -683,7 +715,7 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            ArithmeticError: If the vector is a zero vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -1511,7 +1543,7 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            ArithmeticError: If the vector is a zero vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -1687,6 +1719,32 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">polar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the vector to polar coordinate system</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The polar coordinates</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t calculate the angle of a zero vector&quot;</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">result</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">result</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the angle of the vector</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The angle</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ArithmeticError: If the vector is a zero vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">polar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="s1">&#39;Vector2[T]&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sum two 2D vectors together</span>
@@ -1745,7 +1803,7 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            ArithmeticError: If the vector is a zero vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="nb">super</span><span class="p">(</span><span class="n">Vector2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -1816,6 +1874,52 @@
 <blockquote>
   <p>The second element of the vector</p>
 </blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Vector2.polar" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Vector2.polar">#&nbsp;&nbsp</a>
+
+        <span class="name">polar</span><span class="annotation">: tuple[float, float]</span>
+    </div>
+
+            <div class="docstring"><p>Convert the vector to polar coordinate system</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The polar coordinates</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ArithmeticError:</strong>  If the vector is a zero vector</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Vector2.angle" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#Vector2.angle">#&nbsp;&nbsp</a>
+
+        <span class="name">angle</span><span class="annotation">: float</span>
+    </div>
+
+            <div class="docstring"><p>Calculate the angle of the vector</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The angle</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ArithmeticError:</strong>  If the vector is a zero vector</li>
+</ul>
 </div>
 
 

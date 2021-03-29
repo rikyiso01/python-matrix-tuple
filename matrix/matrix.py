@@ -1,14 +1,15 @@
-from typing import Generic,TypeVar,Iterator,Iterable,Callable,Union
-from math import sqrt
+from typing import Generic,TypeVar,Iterator,Iterable,Callable,Union,SupportsAbs
+from math import sqrt,acos
 
 T=TypeVar('T')
 
 class Matrix(Generic[T]):
     """Representation of a matrix that support mathematical operations"""
     @classmethod
-    def create_matrix(cls,n:int,m:int,function:Callable[[int,int],T]=lambda i,j:.0)->'Matrix[T]':
+    def create_matrix(cls,n:int,m:int,function:Callable[[int,int],T]=lambda i,j:0)->'Matrix[T]':
         """
         Create a matrix using values generated from the given function
+
         Args:
             n: The rows of the matrix
             m: The columns of the matrix
@@ -21,6 +22,7 @@ class Matrix(Generic[T]):
     def __init__(self,matrix:Iterable[Iterable[T]]):
         """
         Matrix constructor
+
         Args:
             matrix: An iterable of iterables to use as a template
         Raises:
@@ -36,6 +38,7 @@ class Matrix(Generic[T]):
     def m(self)->int:
         """
         The number of columns
+
         Returns:
             The number of columns
         """
@@ -45,6 +48,7 @@ class Matrix(Generic[T]):
     def n(self)->int:
         """
         The number of rows
+
         Returns:
             The number of rows
         """
@@ -54,6 +58,7 @@ class Matrix(Generic[T]):
     def sizes(self)->tuple[int,int]:
         """
         The number of rows and columns as a tuple
+
         Returns:
             The number of rows and columns as a tuple
         """
@@ -63,6 +68,7 @@ class Matrix(Generic[T]):
     def matrix(self)->tuple[tuple[T]]:
         """
         Representation of the matrix as a touple of touples
+
         Returns:
             The touple of touples
         """
@@ -71,6 +77,7 @@ class Matrix(Generic[T]):
     def __getitem__(self, n:int)->'Vector[T]':
         """
         Extract a vector from a matrix row
+
         Args:
             n: The row number
         Returns:
@@ -81,6 +88,7 @@ class Matrix(Generic[T]):
     def __call__(self, m:int)->'Vector[T]':
         """
         Extract a vector from a matrix column
+
         Args:
             m: The column number
         Returns:
@@ -91,6 +99,7 @@ class Matrix(Generic[T]):
     def __add__(self, other:'Matrix[T]')->'Matrix[T]':
         """
         Sum two matrix
+
         Args:
             other: The matrix to sum
         Returns:
@@ -105,6 +114,7 @@ class Matrix(Generic[T]):
     def __neg__(self)->'Matrix[T]':
         """
         A matrix which has all elements negated
+
         Returns:
             The resulting matrix
         """
@@ -113,6 +123,7 @@ class Matrix(Generic[T]):
     def __sub__(self, other:'Matrix[T]')->'Matrix[T]':
         """
         Subtract two matrix
+
         Args:
             other: The matrix to subtract
         Returns:
@@ -125,6 +136,7 @@ class Matrix(Generic[T]):
     def __invert__(self)->'Matrix[T]':
         """
         Create a matrix with columns and rows inverted
+
         Returns:
             The resulting matrix
         """
@@ -133,6 +145,7 @@ class Matrix(Generic[T]):
     def __iter__(self)->Iterator['Vector[T]']:
         """
         Iterates over every vector of the matrix
+
         Returns:
             The iterator of vectors
         """
@@ -141,6 +154,7 @@ class Matrix(Generic[T]):
     def __mul__(self, other)->'Matrix':
         """
         Perform the matrix product between two matrix or multiply every element of the matrix with a constant
+
         Args:
             other: The matrix or the number to use
         Returns:
@@ -159,6 +173,7 @@ class Matrix(Generic[T]):
     def __truediv__(self, other)->'Matrix':
         """
         Divide every element of the matrix with a number
+
         Args:
             other: The number to divide against
         Returns:
@@ -169,6 +184,7 @@ class Matrix(Generic[T]):
     def __hash__(self)->int:
         """
         Calculate the hash code of the matrix
+
         Returns:
             The hash code
         """
@@ -177,6 +193,7 @@ class Matrix(Generic[T]):
     def __repr__(self):
         """
         Create a string representation of the matrix
+
         Returns:
             A string representing the matrix
         """
@@ -195,6 +212,7 @@ class Matrix(Generic[T]):
     def __eq__(self, other)->bool:
         """
         Check if the given object is equal to this matrix
+
         Args:
             other: The object to check
         Returns:
@@ -209,12 +227,13 @@ class Matrix(Generic[T]):
         return True
 
 
-class Vector(Matrix[T],Generic[T]):
+class Vector(Matrix[T],Generic[T],SupportsAbs[int]):
     """A single row or column of a matrix"""
     @classmethod
-    def create_vector(cls,length:int,function:Callable[[],T]=lambda:.0)->'Vector[T]':
+    def create_vector(cls,length:int,function:Callable[[],T]=lambda:0)->'Vector[T]':
         """
         Create a vector by using a function to generate the values
+
         Args:
             length: The length of the vector
             function: The function to use to generate the values
@@ -226,6 +245,7 @@ class Vector(Matrix[T],Generic[T]):
     def __init__(self,vector:Iterable[T],transposed=False):
         """
         Vector constructor
+
         Args:
             vector: A list of elements to use to create the matrix or a matrix with a single column or row
             transposed: If the matrix should be a column instead of a row
@@ -247,6 +267,7 @@ class Vector(Matrix[T],Generic[T]):
     def transposed(self)->bool:
         """
         If the vector is a column instead of a row
+
         Returns:
             If the vector is a column instead of a row
         """
@@ -255,6 +276,7 @@ class Vector(Matrix[T],Generic[T]):
     def __len__(self)->int:
         """
         The length of the vector
+
         Returns:
             The length of the vector
         """
@@ -263,6 +285,7 @@ class Vector(Matrix[T],Generic[T]):
     def __add__(self, other:'Vector[T]')->'Vector[T]':
         """
         Sum two vectors together
+
         Args:
             other: The other vector to sum
         Returns:
@@ -275,6 +298,7 @@ class Vector(Matrix[T],Generic[T]):
     def __sub__(self, other:'Vector[T]')->'Vector[T]':
         """
         Subtract two vectors
+
         Args:
             other: The other vector to subtract
         Returns:
@@ -287,6 +311,7 @@ class Vector(Matrix[T],Generic[T]):
     def __getitem__(self, item:int)->T:
         """
         Get an element from the vector
+
         Args:
             item: The index of the element
         Returns:
@@ -300,6 +325,7 @@ class Vector(Matrix[T],Generic[T]):
     def __neg__(self)->'Vector[T]':
         """
         Create a vector which has all elements negated
+
         Returns:
             The resulting vector
         """
@@ -308,21 +334,26 @@ class Vector(Matrix[T],Generic[T]):
     def __mul__(self, other)->Union['Vector[T]',T]:
         """
         Multiply this vector with another vector performing a dot product or with a number multiplying every element
+
         Args:
             other: The vector or the number to use
         Returns:
             The resulting vector
         """
         if isinstance(other,Vector):
-            if self.transposed==other.transposed:
+            a=self
+            if not a.transposed:
+                a=~a
+            if other.transposed:
                 other=~other
-            return super(Vector, self).__mul__(other)[0][0]
+            return super(Vector, a).__mul__(other)[0][0]
         else:
             return Vector(super(Vector, self).__mul__(other))
 
     def __invert__(self)->'Vector[T]':
         """
         Transpose this vector
+
         Returns:
             The resulting vector
         """
@@ -331,6 +362,7 @@ class Vector(Matrix[T],Generic[T]):
     def __iter__(self)->Iterator[T]:
         """
         Iterates over every element of the vector
+
         Returns:
             The iterator to use
         """
@@ -339,6 +371,7 @@ class Vector(Matrix[T],Generic[T]):
     def __abs__(self)->float:
         """
         Calculate the norm of the vector
+
         Returns:
             The norm of the vector
         """
@@ -348,6 +381,7 @@ class Vector(Matrix[T],Generic[T]):
     def unit(self)->'Vector[T]':
         """
         Calculate the unit vector
+
         Returns:
             The unit vector
         Raises:
@@ -363,6 +397,7 @@ class Vector3(Vector[T],Generic[T]):
     def __init__(self,x:T,y:T,z:T):
         """
         3D vector construct
+
         Args:
             x: The first element of the vector
             y: The second element of the vector
@@ -374,6 +409,7 @@ class Vector3(Vector[T],Generic[T]):
     def x(self)->T:
         """
         The first element of the vector
+
         Returns:
             The first element of the vector
         """
@@ -383,6 +419,7 @@ class Vector3(Vector[T],Generic[T]):
     def y(self)->T:
         """
         The second element of the vector
+
         Returns:
             The second element of the vector
         """
@@ -392,6 +429,7 @@ class Vector3(Vector[T],Generic[T]):
     def z(self)->T:
         """
         The third element of the vector
+
         Returns:
             The third element of the vector
         """
@@ -400,6 +438,7 @@ class Vector3(Vector[T],Generic[T]):
     def __add__(self, other:'Vector3[T]')->'Vector3[T]':
         """
         Sum two 3D vectors together
+
         Args:
             other: The other 2D vector to use
         Returns:
@@ -410,6 +449,7 @@ class Vector3(Vector[T],Generic[T]):
     def __sub__(self, other:'Vector3[T]')->'Vector3[T]':
         """
         Subtract two 3D vectors together
+
         Args:
             other: The other 3D vector to use
         Returns:
@@ -420,6 +460,7 @@ class Vector3(Vector[T],Generic[T]):
     def __neg__(self)->'Vector3[T]':
         """
         The negative of the vector
+
         Returns:
             The resulting vector
         """
@@ -428,6 +469,7 @@ class Vector3(Vector[T],Generic[T]):
     def __mul__(self, other)->Union['Vector3[T]',T]:
         """
         Multiply two vectors together with a dot product or multiply every element of the vector with a number
+
         Args:
             other: The 3D vector or the number to use
         Returns:
@@ -441,6 +483,7 @@ class Vector3(Vector[T],Generic[T]):
     def __repr__(self):
         """
         Create a string representation of this 3D vector
+
         Returns:
             The string representation of the 3D vector
         """
@@ -449,6 +492,7 @@ class Vector3(Vector[T],Generic[T]):
     def __pow__(self, power:'Vector3', modulo=None)->'Vector3':
         """
         Perform the cross product between two 3D vectors
+
         Args:
             power: The other vector
             modulo: Unused
@@ -461,18 +505,20 @@ class Vector3(Vector[T],Generic[T]):
     def unit(self)->'Vector3[T]':
         """
         Calculate the unit vector
+
         Returns:
             The unit vector
         Raises:
             ArithmeticError: If the vector is a zero vector
         """
-        return Vector3(*super(Vector3, self).unit())
+        return Vector3(*super(Vector3, self).unit)
 
 class Vector2(Vector[T],Generic[T]):
     """Vector with two elements, useful for 2D physics"""
     def __init__(self,x:T,y:T):
         """
         2D vector construct
+
         Args:
             x: The first element of the vector
             y: The second element of the vector
@@ -483,6 +529,7 @@ class Vector2(Vector[T],Generic[T]):
     def x(self)->T:
         """
         The first element of the vector
+
         Returns:
             The first element of the vector
         """
@@ -492,14 +539,44 @@ class Vector2(Vector[T],Generic[T]):
     def y(self)->T:
         """
         The second element of the vector
+
         Returns:
             The second element of the vector
         """
         return self[1]
 
+    @property
+    def polar(self)->tuple[float,float]:
+        """
+        Convert the vector to polar coordinate system
+
+        Returns:
+            The polar coordinates
+        Raises:
+            ArithmeticError: If the vector is a zero vector
+        """
+        r=abs(self)
+        if r==0:
+            raise ArithmeticError("Can't calculate the angle of a zero vector")
+        result=acos(self.x/r)
+        return r,result if self.y>=0 else -result
+
+    @property
+    def angle(self)->float:
+        """
+        Calculate the angle of the vector
+
+        Returns:
+            The angle
+        Raises:
+            ArithmeticError: If the vector is a zero vector
+        """
+        return self.polar[1]
+
     def __add__(self, other:'Vector2[T]')->'Vector2[T]':
         """
         Sum two 2D vectors together
+
         Args:
             other: The other 2D vector to use
         Returns:
@@ -510,6 +587,7 @@ class Vector2(Vector[T],Generic[T]):
     def __sub__(self, other:'Vector2[T]')->'Vector2[T]':
         """
         Subtract two 2D vectors together
+
         Args:
             other: The other 2D vector to use
         Returns:
@@ -520,6 +598,7 @@ class Vector2(Vector[T],Generic[T]):
     def __neg__(self)->'Vector2[T]':
         """
         The negative of the vector
+
         Returns:
             The resulting vector
         """
@@ -528,6 +607,7 @@ class Vector2(Vector[T],Generic[T]):
     def __mul__(self, other)->Union['Vector2[T]',T]:
         """
         Multiply two vectors together with a dot product or multiply every element of the vector with a number
+
         Args:
             other: The 2D vector or the number to use
         Returns:
@@ -541,6 +621,7 @@ class Vector2(Vector[T],Generic[T]):
     def __repr__(self):
         """
         Create a string representation of this 2D vector
+
         Returns:
             The string representation of the 2D vector
         """
@@ -550,9 +631,10 @@ class Vector2(Vector[T],Generic[T]):
     def unit(self)->'Vector2[T]':
         """
         Calculate the unit vector
+
         Returns:
             The unit vector
         Raises:
             ArithmeticError: If the vector is a zero vector
         """
-        return Vector2(*super(Vector2, self).unit())
+        return Vector2(*super(Vector2, self).unit)

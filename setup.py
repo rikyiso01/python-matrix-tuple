@@ -1,17 +1,15 @@
 from setuptools import setup,find_packages
-from pdoc import pdoc
-from pdoc.render import configure
-from pathlib import Path
-from distutils_commands import publish_pypi,publish_github,clean,pytest,command,source,wheel
+from distutils_commands import publish_pypi,publish_github,clean,pytest,command,source,wheel,pdoc,get_cmdclass
 from os.path import join
 
-@command
+@command('docs')
 def docs():
-    configure(docformat='google')
-    pdoc('matrix',output_directory=Path('docs'))
+    pdoc('matrix')
 
-@command
+
+@command('publish')
 def publish():
+    clean()
     test()
     docs()
     wheel()
@@ -20,7 +18,7 @@ def publish():
     publish_pypi()
     clean()
 
-@command
+@command('test')
 def test():
     pytest(join('tests','tests.py'))
 
@@ -41,7 +39,7 @@ setup(
         'Documentation': 'https://rikyisola.github.io/python-matrix-tuple/matrix/matrix.html',
         'Tracker':'https://github.com/RikyIsola/python-matrix-tuple/issues'},
     packages=find_packages(),
-    cmdclass={'docs':docs,'publish':publish,'test':test},
+    cmdclass=get_cmdclass(),
     classifiers=['Development Status :: 4 - Beta',
                  'Intended Audience :: Developers',
                  'Topic :: Scientific/Engineering :: Mathematics',
@@ -49,4 +47,7 @@ setup(
                  'Programming Language :: Python :: 3.9'],
     keywords='matrix tuple vector vectors vector2 vector3',
     python_requires='>=3.9',
+    setup_requires=['distutils-commands[pdoc]','distutils-commands[github]','distutils-commands[pypi]',
+                    'distutils-commands[pytest]','distutils-commands[wheel]'],
+    tests_require='pytest'
 )

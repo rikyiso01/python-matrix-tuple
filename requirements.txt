@@ -1,3 +1,0 @@
-pdoc
-distutils-commands
-pytest
