@@ -1,6 +1,7 @@
 from matrix import Matrix,Vector,Vector3,Vector2
 from pytest import raises
 from math import pi,sqrt
+from typing import Tuple
 
 class TestMatrix:
     def test_constructor(self):
@@ -123,7 +124,17 @@ class TestVector2:
         with raises(ArithmeticError):
             print(Vector2(0,0).polar)
 
+    def test_polar_creation(self):
+        assert compare_float_vectors(Vector2.convert_polar(1,0),Vector2(1,0))
+        assert compare_float_vectors(Vector2.convert_polar(2,pi/2),Vector2(0,2))
+        assert compare_float_vectors(Vector2.convert_polar(3,pi),Vector2(-3,0))
+        assert compare_float_vectors(Vector2.convert_polar(4,-pi/2),Vector2(0,-4))
+        assert compare_float_vectors(Vector2.convert_polar(1,pi/4),Vector2(1/sqrt(2),1/sqrt(2)))
+
 THRESHOLD=0.00001
 
-def compare_polar(p1:tuple[float,float],p2:tuple[float,float]):
+def compare_float_vectors(vector1:Vector2,vector2:Vector2)->bool:
+    return vector2.x-THRESHOLD<=vector1.x<=vector2.x+THRESHOLD and vector2.y-THRESHOLD<=vector1.y<=vector2.y+THRESHOLD
+
+def compare_polar(p1:Tuple[float,float],p2:Tuple[float,float])->bool:
     return p1[0]==p2[0] and p2[1]-THRESHOLD<=p1[1]<=p2[1]+THRESHOLD

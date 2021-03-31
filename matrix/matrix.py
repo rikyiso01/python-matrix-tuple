@@ -1,5 +1,5 @@
-from typing import Generic,TypeVar,Iterator,Iterable,Callable,Union,SupportsAbs
-from math import sqrt,acos
+from typing import Generic,TypeVar,Iterator,Iterable,Callable,Union,SupportsAbs,Tuple
+from math import sqrt,acos,cos,sin
 
 T=TypeVar('T')
 
@@ -28,7 +28,7 @@ class Matrix(Generic[T]):
         Raises:
             ValueError: If the iterables of matrix have different lengths
         """
-        result:tuple[tuple[T,...]]=tuple([tuple([elem for elem in vector]) for vector in matrix])
+        result:Tuple[Tuple[T,...]]=tuple([tuple([elem for elem in vector]) for vector in matrix])
         for vector in result:
             if len(vector)!=len(result[0]):
                 raise ValueError('Matrix arrays have different lengths')
@@ -55,7 +55,7 @@ class Matrix(Generic[T]):
         return len(self._matrix)
 
     @property
-    def sizes(self)->tuple[int,int]:
+    def sizes(self)->Tuple[int,int]:
         """
         The number of rows and columns as a tuple
 
@@ -65,7 +65,7 @@ class Matrix(Generic[T]):
         return self.n,self.m
 
     @property
-    def matrix(self)->tuple[tuple[T]]:
+    def matrix(self)->Tuple[Tuple[T]]:
         """
         Representation of the matrix as a touple of touples
 
@@ -515,6 +515,20 @@ class Vector3(Vector[T],Generic[T]):
 
 class Vector2(Vector[T],Generic[T]):
     """Vector with two elements, useful for 2D physics"""
+
+    @classmethod
+    def convert_polar(cls,r:float,angle:float)->'Vector2[float]':
+        """
+        Convert polar coordinates into a vector
+
+        Args:
+            r: The length of the vector
+            angle: The angle of the vector
+        Returns:
+            The resulting vector
+        """
+        return Vector2(r*cos(angle),r*sin(angle))
+
     def __init__(self,x:T,y:T):
         """
         2D vector construct
@@ -546,7 +560,7 @@ class Vector2(Vector[T],Generic[T]):
         return self[1]
 
     @property
-    def polar(self)->tuple[float,float]:
+    def polar(self)->Tuple[float,float]:
         """
         Convert the vector to polar coordinate system
 
