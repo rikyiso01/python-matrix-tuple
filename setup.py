@@ -27,7 +27,7 @@ with open("README.md", 'r') as f:
 
 setup(
     name='matrix-tuple',
-    version='1.4',
+    version='1.5',
     description='A python matrix implementation with tuple',
     license="GPL-3",
     long_description=long_description,
@@ -40,7 +40,6 @@ setup(
         'Tracker':'https://github.com/RikyIsola/python-matrix-tuple/issues'},
     packages=find_packages(),
     cmdclass=get_cmdclass(),
-    provides='matrix',
     classifiers=['Development Status :: 4 - Beta',
                  'Intended Audience :: Developers',
                  'Topic :: Scientific/Engineering :: Mathematics',
